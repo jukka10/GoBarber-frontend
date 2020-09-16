@@ -21,7 +21,9 @@ interface SignInFormData {
 
 const Signin: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { SignIn } = useContext(AuthContext);
+  const { user, signIn } = useContext(AuthContext);
+
+  console.log(user);
 
   const handleSubmit = useCallback(
     async ({ email, password }: SignInFormData) => {
@@ -40,14 +42,14 @@ const Signin: React.FC = () => {
             abortEarly: false,
           },
         );
-        SignIn({ email, password });
+        signIn({ email, password });
       } catch (err) {
         const errors = getValidationError(err);
 
         formRef.current?.setErrors(errors);
       }
     },
-    [SignIn],
+    [signIn],
   );
 
   return (
