@@ -36,7 +36,6 @@ const Signup: React.FC = () => {
 
         formRef.current?.setErrors(errors);
       }
-      //disparar um toast
     }
   }, []);
 

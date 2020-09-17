@@ -3,16 +3,14 @@ import React from 'react';
 import GlobalStyle from './styles/global';
 import Signin from './pages/Signin';
 
-import { AuthProvider } from './context/AuthContext';
-import Toast from './components/Toast';
+import ContextProvider from './context';
 
 const App: React.FC = () => {
   return (
     <>
-      <AuthProvider>
+      <ContextProvider>
         <Signin />
-      </AuthProvider>
-      <Toast />
+      </ContextProvider>
       <GlobalStyle />
     </>
   );
