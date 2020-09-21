@@ -13,6 +13,7 @@ interface ToastMessage {
 
 interface Messages {
   message: ToastMessage;
+  style: object;
 }
 
 const icons = {
@@ -21,7 +22,7 @@ const icons = {
   error: <FiAlertCircle size={24} />,
 };
 
-const ToastContainer: React.FC<Messages> = ({ message }) => {
+const ToastContainer: React.FC<Messages> = ({ message, style }) => {
   const { removeToast } = useToast();
 
   useEffect(() => {
@@ -36,7 +37,11 @@ const ToastContainer: React.FC<Messages> = ({ message }) => {
   }, [removeToast, message.id]);
 
   return (
-    <Container type={message.type} hasDescription={!!message.description}>
+    <Container
+      type={message.type}
+      style={style}
+      hasDescription={!!message.description}
+    >
       {icons[message.type || 'info']}
       <div>
         <strong>{message.title}</strong>
