@@ -1,45 +1,25 @@
 import React from 'react';
-import { FiAlertCircle, FiX } from 'react-icons/fi';
 
-import { Container, ToastContainer } from './styles';
+import ToastContainer from './ToastContainer';
+import { Container } from './styles';
 
-const Toast: React.FC = () => {
+interface ToastMessage {
+  id: string;
+  type?: 'info' | 'success' | 'error';
+  title: string;
+  description?: string;
+}
+
+interface Messages {
+  messages: ToastMessage[];
+}
+
+const Toast: React.FC<Messages> = ({ messages }) => {
   return (
     <Container>
-      <ToastContainer type="info" hasDescription>
-        <FiAlertCircle size={20} />
-        <div>
-          <strong>Aconteceu um erro</strong>
-          <p>Erro com o servidor, tente novamente</p>
-        </div>
-
-        <button type="button">
-          <FiX size={18} />
-        </button>
-      </ToastContainer>
-
-      <ToastContainer type="success" hasDescription={false}>
-        <FiAlertCircle size={20} />
-        <div>
-          <strong>Aconteceu um erro</strong>
-        </div>
-
-        <button type="button">
-          <FiX size={18} />
-        </button>
-      </ToastContainer>
-
-      <ToastContainer type="error" hasDescription>
-        <FiAlertCircle size={20} />
-        <div>
-          <strong>Aconteceu um erro</strong>
-          <p>Erro com o servidor, tente novamente</p>
-        </div>
-
-        <button type="button">
-          <FiX size={18} />
-        </button>
-      </ToastContainer>
+      {messages.map(message => (
+        <ToastContainer key={message.id} message={message} />
+      ))}
     </Container>
   );
 };
