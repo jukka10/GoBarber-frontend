@@ -3,13 +3,14 @@ import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 
 import getValidationError from '../../utils/getValidationErrors';
 
-import { Container, Content, Background } from './styles';
+import { Container, Content, Background, AnimationContainer } from './styles';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -50,6 +51,8 @@ const Signin: React.FC = () => {
           const errors = getValidationError(err);
 
           formRef.current?.setErrors(errors);
+
+          return;
         } else {
           addToast({
             type: 'error',
@@ -60,34 +63,36 @@ const Signin: React.FC = () => {
         }
       }
     },
-    [signIn],
+    [signIn, addToast],
   );
 
   return (
     <Container>
       <Content>
-        <img src={logo} alt="GoBarber" />
+        <AnimationContainer>
+          <img src={logo} alt="GoBarber" />
 
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça seu login</h1>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <h1>Faça seu login</h1>
 
-          <Input icon={FiMail} name="email" placeholder="Email" />
-          <Input
-            icon={FiLock}
-            name="password"
-            type="password"
-            placeholder="Senha"
-          />
+            <Input icon={FiMail} name="email" placeholder="Email" />
+            <Input
+              icon={FiLock}
+              name="password"
+              type="password"
+              placeholder="Senha"
+            />
 
-          <Button>Entrar</Button>
+            <Button>Entrar</Button>
 
-          <a href="gsgsf">Esqueci minha senha</a>
-        </Form>
+            <a href="gsgsf">Esqueci minha senha</a>
+          </Form>
 
-        <a href="ddfhf">
-          <FiLogIn size={16} />
-          Criar conta
-        </a>
+          <Link to="/signup">
+            <FiLogIn size={16} />
+            Criar conta
+          </Link>
+        </AnimationContainer>
       </Content>
       <Background />
     </Container>
